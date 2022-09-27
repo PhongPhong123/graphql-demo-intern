@@ -1,4 +1,4 @@
-const { Schema } = require('mongoose');
+const { Schema, model } = require('mongoose');
 
 const UserSchemaDB = new Schema({
     username: {
@@ -16,7 +16,8 @@ const UserSchemaDB = new Schema({
     },
     email: {
         type: String,
-        unique: true
+        unique: true,
+        require: true
     },
     age: {
         type: Number,
@@ -34,6 +35,10 @@ const UserSchemaDB = new Schema({
     active: {
         type: Boolean,
         default: true
+    },
+    role: {
+        type: String,
+        default: 'customer'
     }
 },
     {
@@ -41,4 +46,4 @@ const UserSchemaDB = new Schema({
     }
 );
 
-module.exports = UserSchemaDB;
+module.exports = model('User', UserSchemaDB);

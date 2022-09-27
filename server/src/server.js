@@ -2,6 +2,7 @@ const express = require('express');
 const { graphqlHTTP } = require('express-graphql');
 const mongoose = require('mongoose');
 const Schema = require('./schema');
+const Context = require('./context');
 require('dotenv').config();
 
 const app = express();
@@ -20,6 +21,7 @@ mongoose.connect(MONGO_ACCESS_URL)
 app.use('/graphql', graphqlHTTP({
     schema: Schema,
     graphiql: true,
+    context: Context
 }));
 
 app.listen(PORT, () => {

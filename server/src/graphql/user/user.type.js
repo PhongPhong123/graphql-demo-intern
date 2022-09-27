@@ -1,8 +1,12 @@
-const { GraphQLObjectType, GraphQLNonNull, GraphQLString, GraphQLInt, GraphQLBoolean } = require('graphql');
+const { GraphQLObjectType, GraphQLNonNull, GraphQLString, GraphQLInt, GraphQLBoolean, GraphQLID } = require('graphql');
+const { ERoleType } = require('../../utils/enum.type');
 
 const UserType = new GraphQLObjectType({
     name: 'User',
     fields: () => ({
+        id: {
+            type: new GraphQLNonNull(GraphQLID)
+        },
         username: {
             type: new GraphQLNonNull(GraphQLString)
         },
@@ -10,7 +14,7 @@ const UserType = new GraphQLObjectType({
             type: new GraphQLNonNull(GraphQLString)
         },
         email: {
-            type: GraphQLString
+            type: new GraphQLNonNull(GraphQLString)
         },
         age: {
             type: GraphQLInt
@@ -23,6 +27,9 @@ const UserType = new GraphQLObjectType({
         },
         active: {
             type: GraphQLBoolean
+        },
+        role: {
+            type: ERoleType
         }
     })
 });
