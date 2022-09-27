@@ -4,7 +4,7 @@ const { ERoleType } = require('../../utils/enum.type');
 const UserType = new GraphQLObjectType({
     name: 'User',
     fields: () => ({
-        id: {
+        user_id: {
             type: new GraphQLNonNull(GraphQLID)
         },
         username: {

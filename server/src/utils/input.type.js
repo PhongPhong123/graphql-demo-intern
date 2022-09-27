@@ -5,13 +5,13 @@ const RequireFieldUserInputType = new GraphQLInputObjectType({
     name: "Require_Field_User_Input",
     fields: {
         username: {
-            type: GraphQLString
+            type: new GraphQLNonNull(GraphQLString)
         },
         password: {
-            type: GraphQLString
+            type: new GraphQLNonNull(GraphQLString)
         },
         email: {
-            type: GraphQLString
+            type: new GraphQLNonNull(GraphQLString)
         },
     }
 });

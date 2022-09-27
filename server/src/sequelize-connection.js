@@ -7,10 +7,6 @@ const sequelize = new Sequelize(dev.database, dev.username, dev.password, {
     dialect: dev.dialect
 });
 
-const modelDefiners = [
-    UserModel
-];
-
 async function testingTheConnection () {
     try {
         await sequelize.authenticate();
@@ -20,10 +16,4 @@ async function testingTheConnection () {
     }
 }
 
-function modelingTable () {
-    for (const modelDefiner of modelDefiners) {
-        modelDefiner(sequelize);
-    }
-}
-
-module.exports = { sequelize, testingTheConnection, modelingTable };
+module.exports = { sequelize, testingTheConnection };

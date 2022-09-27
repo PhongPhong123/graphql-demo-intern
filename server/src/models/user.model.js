@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
-    sequelize.define('User', {
+    const model = sequelize.define('User', {
         user_id: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
@@ -24,7 +24,7 @@ module.exports = (sequelize) => {
         },
         age: {
             type: DataTypes.INTEGER.UNSIGNED,
-            defaultValue: 0
+            defaultValue: 1
         },
         gender: {
             type: DataTypes.STRING
@@ -44,4 +44,5 @@ module.exports = (sequelize) => {
     }, {
         freezeTableName: true,
     });
+    return model;
 };

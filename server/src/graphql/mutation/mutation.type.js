@@ -8,14 +8,18 @@ const MutationType = new GraphQLObjectType({
     name: 'Root_Mutation',
     fields: {
         createNewUser: {
-
+            type: UserType,
+            args: {
+                user: { type: userInputType }
+            },
+            resolve: MutationResolver.createNewUser
         },
-        deleteUser: {
+        // deleteUser: {
 
-        },
-        updateUser: {
+        // },
+        // updateUser: {
 
-        }
+        // }
     }
 });
 
