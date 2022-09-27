@@ -6,17 +6,10 @@ const QueryType = new GraphQLObjectType({
     name: 'Root_Query',
     fields: {
         getAllUser: {
-            type: new GraphQLList(UserType),
-            resolve: QueryResolver.getAllUser
+
         },
         getUserByID: {
-            type: UserType,
-            args: {
-                id: {
-                    type: new GraphQLNonNull(GraphQLID)
-                }
-            },
-            resolve: QueryResolver.getUserByID
+
         }
     }
 });
