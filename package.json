@@ -1,0 +1,5 @@
+{
+    "scripts": {
+        "install-lib-server": "cd server && npm install"
+    }
+}
