@@ -1,4 +1,4 @@
-const { Op } = require('sequelize');
+const { Op, where } = require('sequelize');
 const { sequelize } = require('./sequelize-connection');
 const UserDB = require('./models/user.model')(sequelize);
 
@@ -11,9 +11,27 @@ module.exports = {
             return await UserDB.findOne({
                 where: {
                     [Op.or]: [
-                        { username: fields.username },
-                        { email: fields.email }
+                        { ...(fields.username && { username: fields.username }) },
+                        { ...(fields.email && { email: fields.email }) },
+                        { ...(fields.user_id && { user_id: fields.user_id }) }
                     ]
+                }
+            });
+        },
+        findUserByID: async (id) => {
+            return await UserDB.findByPk(id);
+        },
+        deleteUserByUniqueFieldsDB: async (id) => {
+            await UserDB.destroy({
+                where: {
+                    user_id: id
+                }
+            });
+        },
+        updateUserDB: async (id, info) => {
+            await UserDB.update(info, {
+                where: {
+                    user_id: id
                 }
             });
         }

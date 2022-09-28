@@ -9,6 +9,7 @@ const {
 const { applyMiddleware } = require('graphql-middleware');
 const Permissions = require('./permissions');
 const { expressjwt: jwt } = require('express-jwt');
+const { dev } = require('./configs/token.config');
 require('dotenv').config();
 
 const app = express();
@@ -25,14 +26,34 @@ const PORT = process.env.PORT || 1808;
 })();
 
 app.use('/graphql', jwt({
-    secret: 'hihihaha',
-    algorithms: ['HS256']
+    secret: dev.token_key,
+    algorithms: ['HS256'],
+    credentialsRequired: false,
+    getToken: (request) => {
+        if (request.headers.authorization) {
+            const splittedToken = request.headers.authorization.split(' ');
+            if (splittedToken[0] === "Bearer") {
+                return splittedToken[1];
+            }
+        }
+
+        if (request.query && request.query.token) {
+            return request.query.token;
+        }
+
+        return null;
+    }
 }));
 
-app.use('/graphql', graphqlHTTP({
-    schema: applyMiddleware(Schema, Permissions),
-    graphiql: true,
-    context: Context
+app.use('/graphql', graphqlHTTP((request, _response) => {
+    return {
+        schema: applyMiddleware(Schema, Permissions),
+        graphiql: true,
+        context: {
+            ...Context,
+            headers: request.headers
+        }
+    };
 }));
 
 app.listen(PORT, () => {
